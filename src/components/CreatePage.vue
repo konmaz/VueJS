@@ -70,6 +70,17 @@
 </template>
 <script>
 export default {
+  emits: {
+    'pageCreated'({pageTitle, content, link, published}){
+      if (!pageTitle)
+        return false
+      if (!content)
+        return false
+      if (!link || !link.text || !link.url)
+        return false
+      return true
+    }
+  },
   props: ['pageCreated'],
   computed: {
     isFormInvalid() {
@@ -92,8 +103,7 @@ export default {
         alert('Please fill all the fields of the form');
         return;
       }
-
-      this.pageCreated({
+      this.$emit('pageCreated',{
         pageTitle: this.pageTitle,
         content: this.content,
         link: {
@@ -101,8 +111,7 @@ export default {
           url: this.linkUrl
         },
         published: this.published
-      });
-
+      })
       this.clearForm();
     },
     clearForm(){
@@ -111,6 +120,13 @@ export default {
       this.linkText = '';
       this.linkUrl = '';
       this.published = true;
+    }
+  },
+  watch:{
+    pageTitle(newTitle, oldTitle){
+      if (this.linkText == oldTitle){
+        this.linkText = newTitle;
+      }
     }
   }
 }
