@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import {ref, reactive, inject} from "vue";
+import {inject} from "vue";
 import {useRouter} from "vue-router";
 
 const $pages = inject('$pages');
