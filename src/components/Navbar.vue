@@ -12,11 +12,11 @@
 
         <li>
           <router-link
-              to="/create"
+              to="/pages"
               class="nav-link"
               active-class="active"
               aria-current="page"
-          >Create
+          >Pages
           </router-link>
         </li>
 
@@ -39,10 +39,23 @@ export default {
   components:{
     NavbarLink
   },
+  inject: ['$pages', '$bus'],
   created() {
     this.getThemeSetting();
 
     this.pages = this.$pages.getAllPages();
+
+    this.$bus.$on('page-updated', () => {
+      this.pages = [ ... this.$pages.getAllPages()];
+    });
+
+    this.$bus.$on('page-created', () => {
+      this.pages = [ ... this.$pages.getAllPages()];
+    });
+
+    this.$bus.$on('page-deleted', () => {
+      this.pages = [ ... this.$pages.getAllPages()];
+    });
   },
   computed:{
     publishedPages(){
@@ -52,12 +65,12 @@ export default {
   data() {
     return {
       theme: 'light',
-      data: []
+      pages: []
     }
   },
   methods: {
     changeTheme() {
-      let theme = 'light';
+      let theme = 'dark';
       if (this.theme === 'light') {
         theme = 'dark';
       }
