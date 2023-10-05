@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import NavbarLink from "@/components/NavbarLink.vue";
+import NavbarLink from "./NavbarLink.vue";
 export default {
   components:{
     NavbarLink
@@ -64,13 +64,13 @@ export default {
   },
   data() {
     return {
-      theme: 'light',
+      theme: 'dark',
       pages: []
     }
   },
   methods: {
     changeTheme() {
-      let theme = 'dark';
+      let theme = 'light';
       if (this.theme === 'light') {
         theme = 'dark';
       }
